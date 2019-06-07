@@ -4094,6 +4094,14 @@ class ValidationValidatorTest extends TestCase
         $this->assertEquals($v->invalid(), [
             'name' => '',
         ]);
+
+        $v = new Validator($trans, ['items' => ['correct', 'invalid', 'also-correct']], ['items.*' => 'in:correct,also-correct']);
+
+        $this->assertEquals([
+            'items' => [
+                1 => 'invalid'
+            ]
+        ], $v->invalid());
     }
 
     public function testValidMethod()
